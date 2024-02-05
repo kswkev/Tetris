@@ -29,9 +29,19 @@ def move_down():
     tetrimino.move_down()
     screen.update()
 
+def turn_clockwise():
+    tetrimino.turn_clockwise()
+    screen.update()
+
+def turn_anticlockwise():
+    tetrimino.turn_anticlockwise()
+    screen.update()
+
 screen.onkey(key="a", fun=move_left)
 screen.onkey(key="d", fun=move_right)
 screen.onkey(key="s", fun=move_down)
+screen.onkey(key="e", fun=turn_clockwise)
+screen.onkey(key="q", fun=turn_anticlockwise)
 
 
 game_running = True

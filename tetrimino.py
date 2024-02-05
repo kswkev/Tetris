@@ -13,6 +13,8 @@ class Tetrimino:
 
     def __init__(self, pos, shape):
         self.segments = []
+        self.direction = 0
+        self.segment_detail = None
         if shape == "random":
             random_key = choice(list(shapes.keys()))
             self.shape = shapes[random_key]
@@ -21,10 +23,10 @@ class Tetrimino:
 
         self.create_tetrimino(self.shape, pos)
 
-
     def create_tetrimino(self, detail, pos):
         color = detail["color"]
-        for offset in detail["segment_offsets"]:
+        self.segment_detail = detail["segment_offsets"]
+        for offset in self.segment_detail[self.direction]:
             x = (offset[0] * (shape_data.TURTLE_SIZE + shape_data.SPACE)) + pos[0]
             y = (offset[1] * (shape_data.TURTLE_SIZE + shape_data.SPACE)) + pos[1]
             segment = self.create_seqment(color, (x, y))
@@ -38,6 +40,17 @@ class Tetrimino:
         new_segment.goto(pos[0], pos[1])
         new_segment.shapesize(0.9, 0.9)
         return new_segment
+
+    def redraw(self):
+        anchor_x = self.segments[0].xcor()
+        anchor_y = self.segments[0].ycor()
+        segment_plans = self.segment_detail[self.direction]
+        print(anchor_x, anchor_y)
+        print(segment_plans)
+        for i in range(1,4):
+            x = (segment_plans[i][0] * (shape_data.TURTLE_SIZE + shape_data.SPACE)) + anchor_x
+            y = (segment_plans[i][1] * (shape_data.TURTLE_SIZE + shape_data.SPACE)) + anchor_y
+            self.segments[i].goto(x, y)
 
     def move_left(self):
         for segment in self.segments:
@@ -53,3 +66,15 @@ class Tetrimino:
         for segment in self.segments:
             new_y = segment.ycor() - 20
             segment.goto(segment.xcor(), new_y)
+
+    def turn_clockwise(self):
+        self.direction += 1
+        if self.direction >= 4:
+            self.direction = 0
+        self.redraw()
+
+    def turn_anticlockwise(self):
+        self.direction -= 1
+        if self.direction <= -1:
+            self.direction = 3
+        self.redraw()
