@@ -7,8 +7,6 @@ from shape_data import shapes
 TURTLE_SHAPE = "square"
 
 
-
-
 class Tetrimino:
 
     def __init__(self, pos, shape):

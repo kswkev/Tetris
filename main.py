@@ -1,6 +1,7 @@
 from turtle import Screen
 from tetrimino import Tetrimino
 import time
+from board import Board
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
@@ -13,7 +14,9 @@ screen.bgcolor(SCREEN_COLOR)
 screen.title(SCREEN_TITLE)
 screen.tracer(0)
 
-tetrimino = Tetrimino((100,100), "random")
+board = Board(10, 20, (-200, 200), 20)
+
+tetrimino = Tetrimino(board.tetrimino_starting_pos, "random")
 screen.update()
 
 screen.listen()
@@ -48,5 +51,7 @@ game_running = True
 while game_running:
     time.sleep(0.5)
     move_down()
+    if tetrimino.segments[0].ycor() <= -200:
+        tetrimino = Tetrimino(board.tetrimino_starting_pos, "random")
 
 screen.exitonclick()
