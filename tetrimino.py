@@ -52,17 +52,17 @@ class Tetrimino:
 
     def move_left(self):
         for segment in self.segments:
-            new_x = segment.xcor() - 20
+            new_x = segment.xcor() - 22
             segment.goto(new_x, segment.ycor())
 
     def move_right(self):
         for segment in self.segments:
-            new_x = segment.xcor() + 20
+            new_x = segment.xcor() + 22
             segment.goto(new_x, segment.ycor())
 
     def move_down(self):
         for segment in self.segments:
-            new_y = segment.ycor() - 20
+            new_y = segment.ycor() - 22
             segment.goto(segment.xcor(), new_y)
 
     def turn_clockwise(self):
