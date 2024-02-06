@@ -55,6 +55,7 @@ class Tetrimino:
             new_x = segment.xcor() - 22
             segment.goto(new_x, segment.ycor())
 
+
     def move_right(self):
         for segment in self.segments:
             new_x = segment.xcor() + 22
